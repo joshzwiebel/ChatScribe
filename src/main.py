@@ -13,6 +13,7 @@ def cli():
 
 
 cli.add_command(note.save_input_to_file)
+cli.add_command(note.read_my_data)
 
 if __name__ == "__main__":
     cli()

@@ -3,6 +3,7 @@ import os
 import csv
 import json
 import datetime
+import pandas as pd
 
 from openai import OpenAI
 
@@ -37,3 +38,15 @@ def save_input_to_file(content, filename):
             [str(datetime.datetime.now()), content, json.dumps(get_embedding(content))]
         )
     click.echo(f"Successfully wrote to {filename}")
+
+
+
+@click.command()
+def read_my_data():
+    """This is a command line application that reads user data from a file."""
+    filename = "user_data.csv"
+    if not os.path.exists(filename):
+        click.echo(f"{filename} does not exist.")
+        return
+    user_data = pd.read_csv(filename)
+    click.echo(user_data[['content', 'timestamp']])
