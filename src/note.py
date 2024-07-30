@@ -1,17 +1,12 @@
-import click
-import os
 import csv
-import json
 import datetime
+import json
+import os
+
+import click
 import pandas as pd
 
-from openai import OpenAI
-
-
-def get_embedding(text):
-    client = OpenAI()
-    response = client.embeddings.create(model="text-embedding-3-small", input=text)
-    return response.data[0].embedding
+from utils import get_embedding
 
 
 @click.command()
@@ -40,7 +35,6 @@ def save_input_to_file(content, filename):
     click.echo(f"Successfully wrote to {filename}")
 
 
-
 @click.command()
 def read_my_data():
     """This is a command line application that reads user data from a file."""
@@ -49,4 +43,4 @@ def read_my_data():
         click.echo(f"{filename} does not exist.")
         return
     user_data = pd.read_csv(filename)
-    click.echo(user_data[['content', 'timestamp']])
+    click.echo(user_data[["content", "timestamp"]])
